@@ -2,14 +2,14 @@
 #include "md5.h"
 using namespace std;
 
-int unique_id=0;
-vector<string> key_store;
+int unique_id=0; //To give unique Id to every Node
+vector<string> key_store; //Storing Key values:
 
-struct node
+struct node //Struct of the node
 {
 	string time_stamp;
 	string data;
-	int val;
+	int val;					
 	int node_Number;
 	string nodeId;
 	node* down; 
@@ -43,6 +43,59 @@ node* insert(node* root,string time_stamp, string data,int val)
 	return root;
 }
 
+void edit(node* root,int unique_id, int choice) //data can't be changed
+{
+	while(root->node_Number!=unique_id)
+	{
+		root=root->down;
+	}
+
+	if(root->node_Number==unique_id)
+	{
+		// int choice=0;
+		cout<<"What would you like to change "<<endl;
+		cout<<"Press 1) time_stamp"<<endl;
+		cout<<"Press 2) value"<<endl;
+		cout<<"Press 3) both"<<endl;
+
+		cin>>choice;
+		
+		if(choice==1)
+		{
+			string temp;
+			cout<<"Enter time stamp: "<<endl;
+			cin>>temp;
+			root->time_stamp=temp;
+		}
+		else if(choice==2)
+		{
+			int temp;
+			cout<<"Enter value: "<<endl;
+			cin>>temp;
+			root->val=temp;
+		}
+		else if(choice==3)
+		{
+			string temp;
+			int val_temp;
+			cout<<"Enter time stamp & value: "<<endl;
+			cin>>temp>>val_temp;
+			root->time_stamp=temp;
+			root->val=val_temp;
+		}
+		// else
+		// {
+		// 	cout<<"invalid choice"<<endl;
+		// }
+
+	}
+	else
+	{
+		edit(root->down,unique_id,choice);
+	}
+	// return root;
+}
+
 void print(node* root)
 {
 	if(root==NULL)
@@ -63,10 +116,10 @@ int main()
 {
 
 	node* GenesisNode=NULL; // Assumption that geneisis Node 
-	// GenesisNode= insert(GenesisNode,"22feb","baba",123);
-	// GenesisNode=insert(GenesisNode,"11feb","chotu",35);
-	// GenesisNode=insert(GenesisNode,"3feb","chotu",135);
-	// GenesisNode=insert(GenesisNode,"1feb","chotu",435);
+	GenesisNode= insert(GenesisNode,"22feb","baba",123);//Demo Adds
+	GenesisNode=insert(GenesisNode,"11feb","abc",35);//Demo adds
+	GenesisNode=insert(GenesisNode,"3feb","def",135);//Deme adds--
+	GenesisNode=insert(GenesisNode,"1feb","hello",435);//Demo adds
 
 	cout<<"When you are giving input: Press Done if finished in all the field"<<endl;
 	string data="";
@@ -101,5 +154,7 @@ int main()
 	}
 
 	print(GenesisNode);
-	Longets_chain();
+	// int choice=1;
+	// edit(GenesisNode,1,choice);
+	// Longets_chain();
 }
