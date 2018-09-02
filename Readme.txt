@@ -1,6 +1,7 @@
 Steps to compile it:
 1)Run the file
 2)Perform the actions prompted
+3) Comment out the function you want to perform
 
 The Details of the project are as follows-:
 1) Creation of a tree(With necessary parameters)
